@@ -21,7 +21,7 @@ description = "YOUR PINS' DESCRIPTION"
 # Definitions for Selenium, don't change them
 driver = webdriver.Chrome('./chromedriver')
 pinterest_home = "https://www.pinterest.com/"
-member = "Already a member? Log in"
+pre_login_button = '//*[@id="__PWS_ROOT__"]/div/div/div/div/div[3]/div[1]/div[1]/div[2]/div[1]'
 login_button = "//button[@type='submit']"
 debugger = "https://developers.pinterest.com/tools/url-debugger/"
 validate_button = "/html/body/div[2]/div[1]/div/div[2]/form/div/button"
@@ -122,7 +122,7 @@ def login():
     time.sleep(20)
 
     # Click log in link
-    driver.find_element_by_link_text(member).click()
+    driver.find_element_by_xpath(pre_login_button).click()
     time.sleep(20)
 
     # Log in
