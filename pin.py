@@ -26,6 +26,7 @@ login_button = "//button[@type='submit']"
 debugger = "https://developers.pinterest.com/tools/url-debugger/"
 validate_button = "/html/body/div[2]/div[1]/div/div[2]/form/div/button"
 pin_builder = "https://www.pinterest.com/pin-builder/"
+pin_name = "//*[starts-with(@id, 'pin-draft-title-')]"
 pin_description = "//*[starts-with(@id, 'pin-draft-description-')]"
 image_input = "media-upload-input"
 pin_link = "//*[starts-with(@id, 'pin-draft-link-')]"
@@ -148,9 +149,9 @@ def pin() :
     driver.find_element_by_id(image_input).send_keys(image_file + img)
     time.sleep(15)
 
-    # Enter pin name but it's not recommended
-    #driver.find_element_by_id("pin-draft-title").send_keys(name.title())
-    #time.sleep(3)
+    # Enter pin name
+    driver.find_element_by_xpath(pin_name).send_keys(name.title())
+    time.sleep(5)
 
     # Enter description
     driver.find_element_by_xpath(pin_description).send_keys(note)
