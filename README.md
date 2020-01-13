@@ -104,7 +104,7 @@ There are a few things to consider when making board structures:
 
 #### Get the pin name
 
-Pinterest does not actually need the names of the pins. I don't even recommend using a Pin name when pinning because Pinterest doesn't receive the meta tags when you enter the name. However, you need a name to keep track of the program's flow and define the Pinterest boards.
+You need a pin name to keep track of the program's flow and define the Pinterest boards.
 
 
 For example, you downloaded the images from the internet and the names like this : `black_and_white_ui_ux_design-r38548522b52d4124bd270cf8060f89b3_jz0n5.jpg`. As we have seen, the name of the image here is actually `black and white ui ux design`. So we can do the following to get this result.
@@ -161,7 +161,7 @@ for i in range(len(image_list)):
     pairs[image_list[i]] = link_list[i]
 ```
 
-The program works very efficiently while sharing our own images and links. However, we may wish to share content on a website that we do not control. There are some points you need to pay attention to use the program effectively in such cases. For example, let's assume that we want to share some articles from the FreeCodeCamp blog.
+The program works very efficiently while sharing our own images and links. However, we may wish to share content on a website that we do not control. There are some points you need to pay attention to use the program effectively in such cases. For example, let's say that we want to share some articles from the FreeCodeCamp blog.
 
 ![](documentation_files/freecodecamp.png)
 
