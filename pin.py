@@ -21,12 +21,11 @@ description = "YOUR PINS' DESCRIPTION"
 # Definitions for Selenium, don't change them
 driver = webdriver.Chrome('./chromedriver')
 pinterest_home = "https://www.pinterest.com/"
-pre_login_button = '//*[@id="__PWS_ROOT__"]/div/div/div/div/div[3]/div[1]/div[2]/button[1]'
+pre_login_button = '//*[@id="__PWS_ROOT__"]/div[1]/div/div/div/div[1]/div[1]/div[2]/div[2]/button'
 login_button = "//button[@type='submit']"
-debugger = "https://developers.pinterest.com/tools/url-debugger/"
 pin_builder = "https://www.pinterest.com/pin-builder/"
 pin_name = "//*[starts-with(@id, 'pin-draft-title-')]"
-pin_description = "//*[starts-with(@id, 'pin-draft-description-')]"
+pin_description = "//*[starts-with(@id, 'pin-draft-description-')]/div/div/div/div/div/div/div"
 image_input = "media-upload-input"
 pin_link = "//*[starts-with(@id, 'pin-draft-link-')]"
 drop_down_menu = "//button[@data-test-id='board-dropdown-select-button']"
