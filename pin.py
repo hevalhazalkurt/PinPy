@@ -26,7 +26,7 @@ login_button = "//button[@type='submit']"
 pin_builder = "https://www.pinterest.com/pin-builder/"
 pin_name = "//*[starts-with(@id, 'pin-draft-title-')]"
 pin_description = "//*[starts-with(@id, 'pin-draft-description-')]/div/div/div/div/div/div/div"
-image_input = "media-upload-input"
+image_input = "//*[starts-with(@id, 'media-upload-input-')]"
 pin_link = "//*[starts-with(@id, 'pin-draft-link-')]"
 drop_down_menu = "//button[@data-test-id='board-dropdown-select-button']"
 publish_button = "//button[@data-test-id='board-dropdown-save-button']"
@@ -144,7 +144,7 @@ def pin() :
     time.sleep(10)
 
     # Click the upload button
-    driver.find_element_by_id(image_input).send_keys(image_file + img)
+    driver.find_element_by_xpath(image_input).send_keys(image_file + img)
     time.sleep(15)
 
     # Enter pin name
