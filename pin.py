@@ -1,11 +1,7 @@
 import glob
 import time
-import random
-import json
 from random import randint
 from selenium import webdriver
-from selenium.webdriver.common.keys import Keys
-from selenium.webdriver.support.ui import Select
 
 
 # Your Pinterest account details
@@ -96,22 +92,14 @@ def pre_link():
     return pre_link
 
 
-# Setting pinterest board
+# Setting pinterest board and tags
 def pre_board():
+    general = "#blog #writing #tutorial "
     for i in board_data.keys() :
         for x in board_data[i]:
             for y in board_data[i]["keywords"]:
                 if y in pre_name():
-                    return board_data[i]["link"]
-
-# Setting tags
-def pre_tag():
-    general = "#HASHTAG1 #HASHTAG2 "    # You can add some general tags for your pins
-    for i in board_data.keys() :
-        for x in board_data[i]:
-            for y in board_data[i]["keywords"]:
-                if y in pre_name():
-                    return general + board_data[i]["tags"]
+                    return (board_data[i]["link"], general + board_data[i]["tags"])
 
 
 # Pinterest Log in
@@ -179,19 +167,14 @@ login()
 i = 0
 while i < len(image_list):
     for img in image_list:
-        name = pre_name()
-        board = pre_board()
-        b_ind = -2
-        tags = pre_tag()
-        link = pre_link()
+        name, board, tags, link = pre_name(), pre_board()[0], pre_board()[1], pre_link()
         pin()
         i += 1
-        print(name.title(), "pinned on", board[12:(b_ind)])
+        print(name.title(), "pinned on", board[12:-2])
         print(link)
         print("{} image(s) are pinned.".format(i))
         t = randint(10,100)
-        print("Waiting next session...{} seconds".format(t))
-        print("")
+        print("Waiting next session...{} seconds \n".format(t))
         time.sleep(t)
 print("All done! I've pinned {} images!".format(i))
 driver.quit()
