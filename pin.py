@@ -2,7 +2,7 @@ import glob
 import time
 from random import randint
 from selenium import webdriver
-
+from selenium.webdriver.common.by import By
 
 # Your Pinterest account details
 user_name = "YOUR_PINTEREST_USER_NAME"
@@ -17,7 +17,7 @@ description = "YOUR PINS' DESCRIPTION"
 # Definitions for Selenium, don't change them
 driver = webdriver.Chrome('./chromedriver')
 pinterest_home = "https://www.pinterest.com/"
-pre_login_button = '//*[@id="__PWS_ROOT__"]/div[1]/div/div/div/div[1]/div[1]/div[2]/div[2]/button'
+pre_login_button = '/html/body/div[1]/div[1]/div/div/div/div/div/div/div[1]/div/div/div[1]/div/div[2]/div[2]/button/div'
 login_button = "//button[@type='submit']"
 pin_builder = "https://www.pinterest.com/pin-builder/"
 pin_name = "//*[starts-with(@id, 'pin-draft-title-')]"
@@ -26,9 +26,6 @@ image_input = "//*[starts-with(@id, 'media-upload-input-')]"
 pin_link = "//*[starts-with(@id, 'pin-draft-link-')]"
 drop_down_menu = "//button[@data-test-id='board-dropdown-select-button']"
 publish_button = "//button[@data-test-id='board-dropdown-save-button']"
-
-
-
 
 
 # Getting images from the file
@@ -52,26 +49,25 @@ for i in range(len(image_list)):
     pairs[image_list[i]] = link_list[i]
 
 
-
 # Defining your Pinterest boards, keywords, link and tags
-board_data = {"board_category_1": {
+board_data = {
+    "board_category_1": {
                         "keywords": ["KEYWORD1", "KEYWORD2", "KEYWORD3", "KEYWORD4", "KEYWORD5"],
                         "link": "//*[@title='YOUR_PINTEREST_BOARD_NAME']",
                         "tags": "#HASHTAG1 #HASHTAG2 #HASHTAG3 #HASHTAG4 #HASHTAG5 #HASHTAG6"},
-                "board_category_2": {
-                        "keywords": ["KEYWORD1", "KEYWORD2", "KEYWORD3", "KEYWORD4", "KEYWORD5", "KEYWORD6", "KEYWORD7", "KEYWORD8" ],
+    "board_category_2": {
+                        "keywords": ["KEYWORD1", "KEYWORD2", "KEYWORD3", "KEYWORD4", "KEYWORD5", "KEYWORD6", "KEYWORD7"],
                         "link": "//*[@title='YOUR_PINTEREST_BOARD_NAME']",
                         "tags": "#HASHTAG1 #HASHTAG2 #HASHTAG3 #HASHTAG4 #HASHTAG5"},
-                "example_category_tech": {
+    "example_category_tech": {
                         "keywords": ["LAPTOP", "TECHNOLOGY", "COMPUTER", "APPLE", "CANON", "CAMERA", "HEADPHONES", "SPEAKER", "KEYBOARD", "MOUSE PAD"],
                         "link": "//*[@title='Technology Accessories']",
                         "tags": "#tech #technology #accessories"},
-                "example_category_food": {
+    "example_category_food": {
                         "keywords": ["FOOD", "RECIPE", "CAKE", "PASTA", "SOUP", "BEEF", "CHICKEN", "SALAD", "DESERT", "BAKE"],
                         "link": "//*[@title='Tasty Recipes']",
                         "tags": "#food #recipe #cook #cooking #hungry"}
                 }
-
 
 
 # Slicing product name if you need. You can see the example below
@@ -80,7 +76,7 @@ board_data = {"board_category_1": {
 # You can edit this section to get desired name
 def pre_name():
     ind = img.find("-")
-    product = img[:(ind)]
+    product = img[:ind]
     pre_name = product.replace("_", " ")
     pre_name = pre_name.upper()
     return pre_name
@@ -95,11 +91,11 @@ def pre_link():
 # Setting pinterest board and tags
 def pre_board():
     general = "#blog #writing #tutorial "
-    for i in board_data.keys() :
-        for x in board_data[i]:
+    for i in board_data.keys():
+        for _ in board_data[i]:
             for y in board_data[i]["keywords"]:
                 if y in pre_name():
-                    return (board_data[i]["link"], general + board_data[i]["tags"])
+                    return board_data[i]["link"], general + board_data[i]["tags"]
 
 
 # Pinterest Log in
@@ -109,22 +105,21 @@ def login():
     time.sleep(20)
 
     # Click log in link
-    driver.find_element_by_xpath(pre_login_button).click()
+    driver.find_element(By.XPATH, pre_login_button).click()
     time.sleep(20)
 
     # Log in
-    user = driver.find_element_by_name("id")
+    user = driver.find_element(By.NAME, "id")
     user.send_keys(user_name)
     time.sleep(10)
-    pas = driver.find_element_by_name("password")
+    pas = driver.find_element(By.NAME, "password")
     pas.send_keys(user_password)
     time.sleep(10)
-    driver.find_element_by_xpath(login_button).click()
+    driver.find_element(By.XPATH, login_button).click()
     time.sleep(25)
 
 
-
-def pin() :
+def pin():
     note = f'{description} {tags}'
 
     # Go pin builder page
@@ -132,34 +127,32 @@ def pin() :
     time.sleep(10)
 
     # Click the upload button
-    driver.find_element_by_xpath(image_input).send_keys(image_file + img)
+    driver.find_element(By.XPATH, image_input).send_keys(image_file + img)
     time.sleep(15)
 
     # Enter pin name
-    driver.find_element_by_xpath(pin_name).send_keys(name.title())
+    driver.find_element(By.XPATH, pin_name).send_keys(name.title())
     time.sleep(5)
 
     # Enter description
-    driver.find_element_by_xpath(pin_description).send_keys(note)
+    driver.find_element(By.XPATH, pin_description).send_keys(note)
     time.sleep(5)
 
     # Enter link
-    driver.find_element_by_xpath(pin_link).send_keys(link)
+    driver.find_element(By.XPATH, pin_link).send_keys(link)
     time.sleep(5)
 
     # Open board drop-down menu
-    driver.find_element_by_xpath(drop_down_menu).click()
+    driver.find_element(By.XPATH, drop_down_menu).click()
     time.sleep(10)
 
     # Select board
-    driver.find_element_by_xpath(board).click()
+    driver.find_element(By.XPATH, board).click()
     time.sleep(5)
 
     # Click publish button
-    driver.find_element_by_xpath(publish_button).click()
+    driver.find_element(By.XPATH, publish_button).click()
     time.sleep(5)
-
-
 
 
 # Pinning from file
@@ -173,7 +166,7 @@ while i < len(image_list):
         print(name.title(), "pinned on", board[12:-2])
         print(link)
         print("{} image(s) are pinned.".format(i))
-        t = randint(10,100)
+        t = randint(10, 100)
         print("Waiting next session...{} seconds \n".format(t))
         time.sleep(t)
 print("All done! I've pinned {} images!".format(i))
